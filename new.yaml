@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: resize-pvc-pod
+    namespace: persistant
+spec:
+  containers:
+    - name: resize-pvc-pod
+      image: ubuntu:xenial
+      command:
+        - sleep
+        - "3600"
+      volumeMounts:
+       - mountPath: "/data"
+         name: claim
+       - mountPath: "/dev"
+         name: dev 
+      securityContext:                                                                                                           privileged: true                                                                                               volumes:
+     - name: claim                                                                                                             persistentVolumeClaim:
+           claimName:  persis
+     - name: dev                                                                                                                hostPath:                                                                                                                 path: /dev
